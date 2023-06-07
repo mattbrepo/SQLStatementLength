@@ -12,18 +12,20 @@ I found out that SQL statements for [SQLite](https://www.sqlite.org/limits.html)
 SELECT NAME, DESCRIPTION, V_0, V_1, ... V_100 FROM TABLE WHERE ID IN (3,9,54,200)
 ```
 
-where the number of columns like _V\_0_ can change, but it is limited to a maximum of 100 while the number of _ID_s has no real limit. I wanted to find out how many ID it takes for the statement to reach the limit of _SQLITE_MAX_SQL_LENGTH_.
+where the number of columns like _V\_0_ can change, but it is limited to a maximum of 100 while the number of _IDs_ has no real limit. I wanted to find out how many IDs it takes for the statement to reach the limit of _SQLITE_MAX_SQL_LENGTH_.
 
 ## Calculations
 To determine the length (_L_) of the SQL statement based on the number of IDs (_n_), first we define:
 
-$$f = length(fixed\_part)$$
+$$f = length(fixed)$$
 
-$$g = length(ids\_conjunction)$$
+$$g = length(conj)$$
+
+where the _fixed_ if the non-changing part of the SQL statement and _conj_ in this case is the comma. And now we can write L as:
 
 $$L = f + \sum_{i=1}^n (g + \lfloor \log_{10} i \rfloor + 1) - g$$
 
-where the fixed\_part if the non-changing part of the SQL statement and ids\_conjunction in this case is the comma. We can now write a simplified version of this formula to determine the upper bound L1:
+where the floored _log_ + 1 represents the number of digits in the number and the subtraction of _g_ accounts for the comma after the last ID which should not be in. We can now write a simplified version of this formula to determine the upper bound L1:
 
 $$L1 > L1$$
 
@@ -39,8 +41,8 @@ We can finally write:
 
 $$L1 = f - g + n \cdot (g + 1) + \log_{10} (n!)$$
 
-## Implementation of L and L1
-I implemented a few versions of this calculation with different level of precision and calculation time. For _n_ equals to 100,000:
+## Implementations of L and L1
+I implemented a few versions of this calculation with different level of precisions and calculation times. For _n_ equals to 100,000:
 
  Method     | Time (ms) | Result
 ------------|-----------|------------
@@ -50,7 +52,7 @@ L1          | 219       | 657,113
 L1Sterling  | 0         | 600,542
 L1Ramanujan | 0         | 600,542
 
-Where _LString_ calculates _L_ by composing the SQL string, _L_ and _L1_ apply the aforementioned calculations and _L1Sterling_ and _L1Ramanujan_ calculate _L1_ with an approximation of the log factorial:
+Where _LString_ calculates _L_ by composing the SQL string, _L_ and _L1_ apply the aforementioned calculations and _L1Sterling_ and _L1Ramanujan_ calculate _L1_ with approximations of the log factorial:
 
 $$ \log_{10} (n!) \approx logSterling = n \cdot \log_{10} n - n + \frac{1}{2} \cdot \log_{10} (2 \cdot \pi \cdot n) + \frac{1}{12 \cdot n} - \frac{1}{360 \cdot n^3} $$
 
@@ -58,7 +60,7 @@ $$ \log_{10} (n!) \approx logRamanujan = n \cdot \log_{10} n - n + \frac{1}{6} \
 
 Both approximations are defined in the [Stirling's approximation Wikipedia page](https://en.wikipedia.org/wiki/Stirling%27s_approximation#Versions_suitable_for_calculators).
 
-The calculation of some of these methods slows down as _n_ increases. Therefore, for _n_ equals to 115,000,000 I only calculated some of them:
+The calculation of some of these methods slows down drammatically as _n_ increases. Therefore, for _n_ equals to 115,000,000 I only calculated some of them:
 
  Method     | Time (ms) | Result
 ------------|-----------|---------------

@@ -1,6 +1,6 @@
 import math
 import time
-import numpy as np
+#import numpy as np
 
 def calcLString(fixed_part, conj, n):
   SQL = fixed_part
@@ -22,7 +22,7 @@ def calcL1(f, g, n):
   return math.floor(L1)
 
 def calcL1Sterling(f, g, n):
-  # https://en.wikipedia.org/wiki/Stirling%27s_approximation
+  # --- https://en.wikipedia.org/wiki/Stirling%27s_approximation
   
   # math
   #factN = math.sqrt(2 * math.pi * n)  
@@ -35,7 +35,9 @@ def calcL1Sterling(f, g, n):
   #factN = np.longdouble(math.sqrt(2 * math.pi * n)) * np.power(np.longdouble(n / math.e), np.longdouble(n))
   #L1 = f - g + n * (g + 1) + np.log10(factN)
   #L1 = np.round(L1)
+  # ---
   
+  # https://en.wikipedia.org/wiki/Stirling%27s_approximation#Speed_of_convergence_and_error_estimates
   logSterling = n * math.log10(n) - n + 1/2 * math.log10(2 * math.pi * n) + 1 / (12 * n) - 1 / (360 * n**3)
   L1 = f - g + n * (g + 1) + logSterling
   return math.floor(L1)
