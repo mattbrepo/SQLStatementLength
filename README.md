@@ -25,7 +25,7 @@ where the _fixed_ if the non-changing part of the SQL statement and _conj_ in th
 
 $$L = f + \sum_{i=1}^n (g + \lfloor \log_{10} i \rfloor + 1) - g$$
 
-where the floored _log_ + 1 represents the number of digits in the number and the subtraction of _g_ accounts for the comma after the last ID which should not be in. We can now write a simplified version of this formula to determine the upper bound L1:
+where the floored _log_ + 1 represents the number of digits in the number and the subtraction of _g_ accounts for the comma after the last ID which should not be included. We can now write a simplified version of this formula to determine the upper bound L1:
 
 $$L1 > L1$$
 
