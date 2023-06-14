@@ -15,13 +15,7 @@ SELECT NAME, DESCRIPTION, V_0, V_1, ... V_100 FROM TABLE WHERE ID IN (3,9,54,200
 where the number of columns like _V\_0_ can change, but it is limited to a maximum of 100 while the number of _IDs_ has no real limit. I wanted to find out how many IDs it takes for the statement to reach the limit of _SQLITE_MAX_SQL_LENGTH_.
 
 ## Calculations
-To determine the length (_L_) of the SQL statement based on the number of IDs (_n_), first we define:
-
-$$f = length(fixed)$$
-
-$$g = length(conj)$$
-
-where the _fixed_ if the non-changing part of the SQL statement and _conj_ in this case is the comma. And now we can write L as:
+To determine the length (_L_) of the SQL statement based on the number of IDs (_n_), first we define _f_ to be the length fixed part of the SQL statement and _g_ the length of the conjugation part of the IDs which in this case is the comma. And now we can write L as:
 
 $$L = f + \sum_{i=1}^n (g + \lfloor \log_{10} i \rfloor + 1) - g$$
 
