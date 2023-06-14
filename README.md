@@ -46,7 +46,7 @@ L1          | 219       | 657,113
 L1Sterling  | 0         | 600,542
 L1Ramanujan | 0         | 600,542
 
-Where _LString_ calculates _L_ by composing the SQL string, _L_ and _L1_ apply the aforementioned calculations and _L1Sterling_ and _L1Ramanujan_ calculate _L1_ with approximations of the log factorial:
+where _LString_ calculates _L_ by composing the SQL string, _L_ and _L1_ apply the aforementioned calculations and _L1Sterling_ and _L1Ramanujan_ calculate _L1_ with approximations of the log factorial:
 
 $$ \log_{10} (n!) \approx logSterling = n \cdot \log_{10} n - n + \frac{1}{2} \cdot \log_{10} (2 \cdot \pi \cdot n) + \frac{1}{12 \cdot n} - \frac{1}{360 \cdot n^3} $$
 
