@@ -29,7 +29,7 @@ $$L1 = f - g + \sum_{i=1}^n (g + 1) + \sum_{i=1}^n \log_{10} i$$
 
 And since we know that:
 
-$$\log a + \log b = \log (a + b)$$
+$$\log a + \log b = \log (a \cdot b)$$
 
 We can finally write:
 
